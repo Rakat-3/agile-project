@@ -1,0 +1,51 @@
+{
+  "components": [
+    {
+      "label": "Negotiation Notes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_14prtra",
+        "columns": null
+      },
+      "id": "Field_10cezir",
+      "key": "negotiation",
+      "description": "share the negotiation notes"
+    },
+    {
+      "label": "New Proposed Price (€)",
+      "type": "number",
+      "layout": {
+        "row": "Row_0aoyt64",
+        "columns": null
+      },
+      "id": "Field_1fv8oyb",
+      "key": "newprice",
+      "description": "propose new price",
+      "validate": {
+        "required": false
+      }
+    },
+    {
+      "label": "Negotiation Completed?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_10o20xr",
+        "columns": null
+      },
+      "id": "Field_01h5f6i",
+      "key": "negotiationdone",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "negotiateProvider",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.41.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.24.0",
+  "schemaVersion": 19
+}

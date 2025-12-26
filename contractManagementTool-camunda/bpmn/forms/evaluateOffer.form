@@ -1,0 +1,110 @@
+{
+  "components": [
+    {
+      "label": "Offer Price (€)",
+      "type": "number",
+      "layout": {
+        "row": "Row_0k02w34",
+        "columns": null
+      },
+      "id": "Field_0h2gc9q",
+      "key": "offerPrice",
+      "description": "offer your price",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Offer Summary",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_0q52cyc",
+        "columns": null
+      },
+      "id": "Field_02nj8qp",
+      "key": "offerSummary"
+    },
+    {
+      "label": "Meet Requirements?",
+      "values": [
+        {
+          "label": "Yes",
+          "value": "yes"
+        },
+        {
+          "label": "No",
+          "value": "no"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_0873bgr",
+        "columns": null
+      },
+      "id": "Field_07g658q",
+      "key": "meetRequirement",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Offer Quality",
+      "values": [
+        {
+          "label": "High",
+          "value": "high"
+        },
+        {
+          "label": "Medium",
+          "value": "medium"
+        },
+        {
+          "label": "Low",
+          "value": "low"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_1iivb92",
+        "columns": null
+      },
+      "id": "Field_1hd29xw",
+      "key": "offerQuality",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Offer Decision",
+      "values": [
+        {
+          "label": "Accept",
+          "value": "accept"
+        },
+        {
+          "label": "Reject",
+          "value": "reject"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_19dxn5o",
+        "columns": null
+      },
+      "id": "Field_06bft5i",
+      "key": "offerDecision",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "evaluateOffer",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.41.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.24.0",
+  "schemaVersion": 19
+}

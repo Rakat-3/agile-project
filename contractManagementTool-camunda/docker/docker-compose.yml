@@ -1,0 +1,105 @@
+version: "3.9"
+
+services:
+  camunda:
+    image: camunda/camunda-bpm-platform:run-latest
+    container_name: camunda7
+    ports:
+      - "8080:8080"
+    environment:
+      - TZ=Europe/Berlin
+    networks:
+      - contract-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/engine-rest/engine > /dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  postgres:
+    image: postgres:16
+    container_name: contract-postgres
+    environment:
+      - POSTGRES_USER=contract_user
+      - POSTGRES_PASSWORD=contract_pass
+      - POSTGRES_DB=contract_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - contract-net
+
+  store-contract-worker:
+    build: ../camunda-worker
+    container_name: store-contract-worker
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TZ=Europe/Berlin
+      - PYTHONUNBUFFERED=1
+      - CAMUNDA_REST=http://camunda:8080/engine-rest
+      - CAMUNDA_USER=demo
+      - CAMUNDA_PASS=demo
+      - CAMUNDA_TOPIC=store-contract-data
+      - WORKER_ID=python-store-worker
+    command: ["python", "-u", "store_contract_data_worker.py"]
+    depends_on:
+      camunda:
+        condition: service_healthy
+      postgres:
+        condition: service_started
+    networks:
+      - contract-net
+
+  store-publish-worker:
+    build: ../camunda-worker
+    container_name: store-publish-worker
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TZ=Europe/Berlin
+      - PYTHONUNBUFFERED=1
+      - CAMUNDA_REST=http://camunda:8080/engine-rest
+      - CAMUNDA_USER=demo
+      - CAMUNDA_PASS=demo
+      - CAMUNDA_TOPIC=store-publish-data
+      - WORKER_ID=python-publish-worker
+    command: ["python", "-u", "store_publish_data_worker.py"]
+    depends_on:
+      camunda:
+        condition: service_healthy
+      postgres:
+        condition: service_started
+    networks:
+      - contract-net
+
+  email-worker:
+    build: ../camunda-worker
+    container_name: email-worker
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TZ=Europe/Berlin
+      - PYTHONUNBUFFERED=1
+      - CAMUNDA_REST=http://camunda:8080/engine-rest
+      - CAMUNDA_USER=demo
+      - CAMUNDA_PASS=demo
+      - CAMUNDA_TOPIC=send-email
+      - WORKER_ID=python-email-worker
+    command: ["python", "-u", "email_worker.py"]
+    depends_on:
+      camunda:
+        condition: service_healthy
+    networks:
+      - contract-net
+
+networks:
+  contract-net:
+
+volumes:
+  pgdata:

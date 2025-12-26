@@ -1,0 +1,145 @@
+{
+  "components": [
+    {
+      "label": "Contract Title",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1p5ui86",
+        "columns": null
+      },
+      "id": "Field_1m8kz0y",
+      "key": "contractTitle",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Contract Type",
+      "values": [
+        {
+          "label": "Service",
+          "value": "service"
+        },
+        {
+          "label": "Purchase",
+          "value": "purchase"
+        },
+        {
+          "label": "Maintenance",
+          "value": "maintenance"
+        },
+        {
+          "label": "Other",
+          "value": "other"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_0fejssq",
+        "columns": null
+      },
+      "id": "Field_1pcu4ht",
+      "key": "contractType",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Budget (€)",
+      "type": "number",
+      "layout": {
+        "row": "Row_0fwit7r",
+        "columns": null
+      },
+      "id": "Field_0x9d8m5",
+      "key": "budget",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "subtype": "date",
+      "dateLabel": "Contract Start Date",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_1fe5k2c",
+        "columns": null
+      },
+      "id": "Field_19wihzx",
+      "key": "contractStartDate",
+      "description": "contractStartDate",
+      "validate": {
+        "required": true
+      },
+      "disallowPassedDates": true
+    },
+    {
+      "subtype": "date",
+      "dateLabel": "Contract End Date",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_03fwhv7",
+        "columns": null
+      },
+      "id": "Field_1m6m07s",
+      "key": "contractEndDate",
+      "validate": {
+        "required": true
+      },
+      "disabled": false,
+      "disallowPassedDates": true,
+      "description": "contractEndDate",
+      "readonly": false
+    },
+    {
+      "label": "Description",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_1wl0d1t",
+        "columns": null
+      },
+      "id": "Field_03j3xpu",
+      "key": "description",
+      "validate": {
+        "required": false
+      }
+    },
+    {
+      "type": "separator",
+      "layout": {
+        "row": "Row_08usfnr",
+        "columns": null
+      },
+      "id": "Field_0cvwe0p"
+    },
+    {
+      "label": "Create",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_0253sko",
+        "columns": null
+      },
+      "id": "Field_16erugi"
+    },
+    {
+      "label": "Clear",
+      "action": "reset",
+      "type": "button",
+      "layout": {
+        "row": "Row_0253sko",
+        "columns": null
+      },
+      "id": "Field_04xy5mh"
+    }
+  ],
+  "type": "default",
+  "id": "createContractRequest",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.41.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.24.0",
+  "schemaVersion": 19
+}

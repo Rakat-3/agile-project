@@ -1,0 +1,46 @@
+{
+  "components": [
+    {
+      "label": "Legal Comments",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_11b4w9c",
+        "columns": null
+      },
+      "id": "Field_1e2j95l",
+      "key": "legalcomment"
+    },
+    {
+      "label": "Approval Decision (Legal)",
+      "values": [
+        {
+          "label": "Approve",
+          "value": "approve"
+        },
+        {
+          "label": "Decline",
+          "value": "decline"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_1t74e9f",
+        "columns": null
+      },
+      "id": "Field_0l46ts1",
+      "key": "approvaldecision",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "reviewContract",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.41.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.24.0",
+  "schemaVersion": 19
+}

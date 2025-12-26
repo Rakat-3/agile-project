@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+  xmlns:modeler="http://camunda.org/schema/modeler/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_cmtool"
+  targetNamespace="http://frauas.de/contract"
+  exporter="Camunda Modeler"
+  exporterVersion="5.41.0"
+  modeler:executionPlatform="Camunda Platform"
+  modeler:executionPlatformVersion="7.24.0">
+
+  <!-- ✅ Collaboration (REQUIRED FOR DIAGRAM) -->
+  <bpmn:collaboration id="ContractCollaboration">
+    <bpmn:participant
+      id="FraUAS"
+      name="FraUAS Contract Management"
+      processRef="ContractManagementProcess"/>
+  </bpmn:collaboration>
+
+  <!-- ✅ Process -->
+  <bpmn:process
+    id="ContractManagementProcess"
+    name="Contract Management Process"
+    isExecutable="true"
+    camunda:historyTimeToLive="180">
+
+    <bpmn:startEvent id="StartEvent" name="Start">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:userTask
+      id="CreateContract"
+      name="Create Contract Request"
+      camunda:candidateGroups="pm">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:userTask
+      id="LegalReview"
+      name="Legal Review"
+      camunda:candidateGroups="lc">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:exclusiveGateway id="ApprovedGateway" name="Approved?">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_Yes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_No</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:serviceTask
+      id="StoreContract"
+      name="Store Final Contract"
+      camunda:type="external"
+      camunda:topic="store-contract">
+      <bpmn:incoming>Flow_Yes</bpmn:incoming>
+      <bpmn:outgoing>Flow_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="EndEvent" name="Contract Finalized">
+      <bpmn:incoming>Flow_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent" targetRef="CreateContract"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="CreateContract" targetRef="LegalReview"/>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="LegalReview" targetRef="ApprovedGateway"/>
+
+    <bpmn:sequenceFlow id="Flow_Yes" sourceRef="ApprovedGateway" targetRef="StoreContract">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+        ${approved == true}
+      </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:sequenceFlow id="Flow_No" sourceRef="ApprovedGateway" targetRef="CreateContract">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">
+        ${approved == false}
+      </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:sequenceFlow id="Flow_End" sourceRef="StoreContract" targetRef="EndEvent"/>
+
+  </bpmn:process>
+
+  <!-- ✅ Diagram -->
+  <bpmndi:BPMNDiagram id="Diagram_1">
+    <bpmndi:BPMNPlane id="Plane_1" bpmnElement="ContractCollaboration"/>
+  </bpmndi:BPMNDiagram>
+
+</bpmn:definitions>
+``

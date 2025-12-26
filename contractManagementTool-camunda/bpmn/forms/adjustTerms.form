@@ -1,0 +1,38 @@
+{
+  "components": [
+    {
+      "label": "Updated Terms and Conditions",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_0tpldwa",
+        "columns": null
+      },
+      "id": "Field_165pxne",
+      "key": "updatedterms",
+      "readonly": false
+    },
+    {
+      "label": "New Budget",
+      "type": "number",
+      "layout": {
+        "row": "Row_1iz134q",
+        "columns": null
+      },
+      "id": "Field_1v0aqn4",
+      "key": "newbudget",
+      "validate": {
+        "required": true
+      },
+      "description": "number only (e.g. 1234)"
+    }
+  ],
+  "type": "default",
+  "id": "adjustTerms",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.41.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.24.0",
+  "schemaVersion": 19
+}
